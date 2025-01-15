@@ -1,28 +1,10 @@
 "use client";
-
-import { useEffect, useState } from "react";
-type Category = {
-  categoryName: String;
-  id: Number;
-};
-
-const [categories, setCategories] = useState<Category[]>([]);
-
-useEffect(() => {
-  const fetchData = async () => {
-    const response = await fetch(`http://localhost:8000`);
-    const data = await response.json();
-    setCategories(data);
-  };
-  fetchData();
-}, []);
-
+import React from "react";
+import Category from "./_components/Categories";
 export default function Home() {
   return (
     <div>
-      {categories.map((category) => (
-        <div>{category} </div>
-      ))}
+      <Category />
     </div>
   );
 }
