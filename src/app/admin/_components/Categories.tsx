@@ -1,4 +1,5 @@
 "use client";
+import { Badge } from "@/components/ui/badge";
 import React from "react";
 import { useEffect, useState } from "react";
 type Category = {
@@ -18,23 +19,30 @@ export default function Category() {
       },
       body: JSON.stringify({ categoryName }),
     });
+
     const data = await response.json();
     setCategories([...categories, data.newItem]);
+    // console.log(categoryName);
   };
 
   useEffect(() => {
-    const fetchData = async () => {};
+    const fetchData = async () => {
+      const response = await fetch(`http://localhost:8000/food-category`);
+      const data = await response.json();
+      setCategories(data);
+    };
     fetchData();
   }, []);
 
   return (
-    <div>
+    <div className="w-[1171px] h-[176px] bg-[#F4F4F5] ">
       {categories.map((category) => (
-        <div key={category._id}>{category.categoryName} </div>
+        <Badge key={category?._id}>{category?.categoryName} </Badge>
       ))}
-      <button className="" onClick={addCategory}>
-        add new
+      <button className="bg-green-500 " onClick={addCategory}>
+        Food menu
       </button>
+      <div></div>
     </div>
   );
 }
