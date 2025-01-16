@@ -4,11 +4,18 @@ export default function AdminLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body>
-        <div className="w-[205px] h-1024px] bg-[#ffffff]">Sidebar</div>
-        <div>{children}</div>
-      </body>
-    </html>
+    <div className="flex w-[400px] h-[1024px] bg-[#ffffff] ">
+      <div>
+        <div className="font-bold">NomNom</div>
+        <div>Swift delivery</div>
+      </div>
+
+      <div className="w-[165px] h-[168px]">
+        <button className="border rounded">Food menu</button>
+        <button className="border rounded">Orders</button>
+      </div>
+
+      <div>{children}</div>
+    </div>
   );
 }
