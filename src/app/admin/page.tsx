@@ -1,13 +1,13 @@
 "use client";
 
 import Category from "./_components/Categories";
-
-// import Layout from "./layout";
+import Food from "./_components/Food";
 
 export default function Home() {
   return (
     <div>
       <Category />
+      <Food />
     </div>
   );
 }
