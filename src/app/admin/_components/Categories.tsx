@@ -62,8 +62,9 @@
 // }
 "use client";
 import { Badge } from "@/components/ui/badge";
-import React, { useEffect, useState } from "react";
-
+import Link from "next/link";
+import React from "react";
+import { useEffect, useState } from "react";
 type Category = {
   categoryName: string;
   _id: string;
@@ -73,10 +74,8 @@ export default function Category() {
   const [categories, setCategories] = useState<Category[]>([]);
 
   const addCategory = async () => {
-    const categoryName = prompt("Enter category name");
-    if (!categoryName) return;
-
-    const response = await fetch("http://localhost:8000/food-category", {
+    const categoryName = prompt("Add new category");
+    const response = await fetch(`http://localhost:8000/food-category`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -98,25 +97,25 @@ export default function Category() {
   }, []);
 
   return (
-    <div className="p-6 rounded-lg max-w-[1171px] mx-auto">
-      <h2 className="text-lg font-semibold text-gray-800 mb-4">
-        Dishes Category
-      </h2>
-      <div className="flex flex-wrap gap-3 mb-6 hover:border-red-800">
+    <div className="w-[1000px] h-[176px] bg-[#ffffff] p-6 gap-6 rounded-lg  ">
+      <h2 className="font-bold">Dishes Category</h2>
+      <div className="flex items-center gap-4 mt-4 ">
         {categories.map((category) => (
-          <Badge
-            key={category?._id}
-            className="px-3 py-1 bg-white-100 text-black-600 rounded-full  "
-          >
-            {category?.categoryName}
-          </Badge>
+          <Link href={category._id}>
+            <Badge
+              className="bg-[#ffffff] text-black gap-4 p-2 rounded-full border hover:border-red-500"
+              key={category?._id}
+            >
+              {category?.categoryName}{" "}
+            </Badge>
+          </Link>
         ))}
       </div>
 
-      <div className="flex justify-end">
+      <div className="flex  ">
         <button
+          className="bg-red-500 w-10 h-10 rounded-full"
           onClick={addCategory}
-          className="w-12 h-12 bg-red-500 text-white rounded-full shadow-lg hover:border-red-800 flex items-center justify-center"
         >
           +
         </button>
