@@ -1,24 +1,3 @@
-// export default function AdminLayout({
-//   children,
-// }: Readonly<{
-//   children: React.ReactNode;
-// }>) {
-//   return (
-//     <div className="flex w-[400px] h-[1024px] bg-[#ffffff] ">
-//       <div>
-//         <div className="font-bold">NomNom</div>
-//         <div>Swift delivery</div>
-//       </div>
-
-//       <div className="w-[165px] h-[168px]">
-//         <button className="border rounded">Food menu</button>
-//         <button className="border rounded">Orders</button>
-//       </div>
-
-//       <div>{children}</div>
-//     </div>
-//   );
-// }
 export default function AdminLayout({
   children,
 }: Readonly<{
@@ -27,7 +6,7 @@ export default function AdminLayout({
   return (
     <div className="flex h-screen">
       {/* Sidebar */}
-      <div className="w-[300px] bg-white shadow-lg flex flex-col py-6 px-4">
+      <div className="w-[300px] bg-white flex flex-col py-6 px-4">
         {/* Logo Section */}
         <div>
           <h1 className="text-2xl font-bold ">NomNom</h1>
@@ -36,10 +15,12 @@ export default function AdminLayout({
 
         {/* Menu Buttons */}
         <div className="space-y-4">
-          <button className="w-full py-3 px-4  text-black rounded-lg  ">
+          <button className="w-[150px] py-3 px-4 hover:bg-[#18181B] hover:text-[#FAFAFA] text-black rounded-full  ">
             Food menu
           </button>
-          <button className="w-full py-3 px-4  text-gray-500  ">Orders</button>
+          <button className="w-[150px] py-3 px-4 hover:bg-[#18181B] hover:text-[#FAFAFA] text-black rounded-full">
+            Orders
+          </button>
         </div>
       </div>
 

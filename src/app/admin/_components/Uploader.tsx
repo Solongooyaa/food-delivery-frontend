@@ -5,6 +5,7 @@ const CLOUDINARY_PRESET = "food-delivery";
 
 export const Uploader = () => {
   const [imageUrl, setImageUrl] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files.length > 0) {
@@ -28,7 +29,7 @@ export const Uploader = () => {
   };
   return (
     <div>
-      <input type="file" onChange={handleUpload} />
+      <input disabled={loading} type="file" onChange={handleUpload} />
       <button>Upload</button>
       {imageUrl && <img src={imageUrl} alt="" />}
     </div>
