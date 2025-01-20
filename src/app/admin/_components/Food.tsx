@@ -11,13 +11,12 @@ export default function Food() {
   const [foods, setFoods] = useState<Food[]>([]);
 
   const addFood = async () => {
-    const categoryName = prompt("Enter category name");
     const response = await fetch(`http://localhost:8000/food`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ categoryName }),
+      body: JSON.stringify({}),
     });
 
     const data = await response.json();
