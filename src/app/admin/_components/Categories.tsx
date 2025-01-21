@@ -16,26 +16,19 @@ type Category = {
 
 export default function Category() {
   const [categories, setCategories] = useState<Category[]>([]);
+  const [value, setValue] = useState<any>([]);
 
-  const addCategory = async () => {
-    const response = await fetch(`http://localhost:8000/food-category`, {
+  const addCategory = async (value: any) => {
+    const categoryName: any = [categories, value];
+    await fetch(`http://localhost:8000/food-category`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({}),
+      body: JSON.stringify({ categoryName: value }),
     });
 
-    const data = await response.json();
-    setCategories([...categories, data.newItem]);
-  };
-  const deleteCategory = async () => {
-    const response = await fetch(`http://localhost:8000/food-category/${id}`, {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-    });
+    setCategories(value);
   };
 
   useEffect(() => {
@@ -45,60 +38,45 @@ export default function Category() {
       setCategories(data);
     };
     fetchData();
-  }, []);
+  }, [value]);
 
   return (
-    <Dialog>
-      <DialogTrigger>
-        <div className="w-[1000px] h-[176px] bg-[#ffffff] p-6 gap-6 rounded-xl  ">
-          <button className="bg-red-500 w-10 h-10 rounded-full">+</button>
-          {/* <div className="flex  "> */}
-        </div>
-      </DialogTrigger>
-      <DialogContent>
-        <DialogTitle>Add new category</DialogTitle>
-        <div className="flex items-center gap-4 mt-4 ">
-          {categories.map((category) => (
-            <Badge
-              className="bg-[#ffffff] text-black gap-4 p-2 rounded-full border border-[#E4E4E7] hover:border-red-500"
-              key={category?._id}
-            >
-              {category?.categoryName}{" "}
-            </Badge>
-          ))}
-          Category name
-          <input
-            className="border rounded-lg"
-            placeholder="Type category name..."
-          />
-          {/* </div> */}
-          <button
-            className="bg-black w-100 h-100 rounded"
-            onClick={addCategory}
+    <div className="w-[1000px] h-[176px] bg-[#ffffff] p-6 gap-6 rounded-xl  ">
+      <p className="">Dishes category</p>
+      <div className="flex items-center gap-4 mt-4 ">
+        {categories.map((category) => (
+          <Badge
+            className="bg-[#ffffff] text-black gap-4 p-2 rounded-full border border-[#E4E4E7] hover:border-red-500 w-[100px]"
+            key={category?._id}
           >
-            add
-          </button>
+            {category?.categoryName}{" "}
+          </Badge>
+        ))}
+      </div>
+      <Dialog>
+        <div className="w-[460px] h-[272px]">
+          <DialogTrigger>
+            <div className="bg-red-500 w-10 h-10 rounded-full">+</div>
+            {/* <div className="flex  "> */}
+          </DialogTrigger>
+          <DialogContent>
+            <DialogTitle>Add new category</DialogTitle>
+            Category name
+            <input
+              className="border rounded-lg"
+              placeholder="Type category name..."
+              onChange={(e) => setValue(e.target.value)}
+            />
+            {/* </div> */}
+            <button
+              className="bg-black w-100 h-100 rounded"
+              onClick={() => addCategory(value)}
+            >
+              add
+            </button>
+          </DialogContent>
         </div>
-      </DialogContent>
-    </Dialog>
-
-    //    <Popover>
-    //    <PopoverTrigger>
-    //      <div className="w-[60px] border rounded p-4 flex justify-center items-center">
-    //        <ArrowBigDown /> Genre
-    //      </div>
-    //    </PopoverTrigger>
-    //    <PopoverContent>
-    //      {genres?.map((genre: Genre) => (
-    //        <Link
-    //          className="p-1"
-    //          key={genre.id}
-    //          href={`/discover?with_genres=${genre.id}&page=1`}
-    //        >
-    //          <Badge key={`genre-${genre.id}`}> {genre?.name} </Badge>
-    //        </Link>
-    //      ))}
-    //    </PopoverContent>
-    //  </Popover>
+      </Dialog>
+    </div>
   );
 }

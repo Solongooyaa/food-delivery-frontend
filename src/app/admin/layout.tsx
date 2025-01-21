@@ -16,16 +16,16 @@ export default function AdminLayout({
     <ClerkProvider>
       <div className="flex h-screen">
         <div className="w-[300px] bg-white flex flex-col py-6 px-4">
-          <div>
+          <div className="mb-[30px]">
             <h1 className="text-2xl font-bold ">NomNom</h1>
             <p className="text-sm text-gray-500">Swift delivery</p>
           </div>
 
           <div className="space-y-4">
-            <button className="w-[150px] py-3 px-4 hover:bg-[#18181B] hover:text-[#FAFAFA] text-black rounded-full  ">
+            <button className="w-[150px] py-3 px-4 hover:bg-[#18181B] hover:text-[#FAFAFA] text-black rounded-full border  ">
               Food menu
             </button>
-            <button className="w-[150px] py-3 px-4 hover:bg-[#18181B] hover:text-[#FAFAFA] text-black rounded-full">
+            <button className="w-[150px] py-3 px-4 hover:bg-[#18181B] hover:text-[#FAFAFA] text-black rounded-full border">
               Orders
             </button>
           </div>
