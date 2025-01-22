@@ -38,8 +38,8 @@ export default function Food() {
 
   return (
     <div className="w-full h-[176px] bg-[#FFFFFF] mt-6 rounded-lg ">
-      <div className="w-[460px] h-[592px] ">
-        {foodName.map((food) => (
+      {/* <div className="w-[460px] h-[592px] ">
+        {foodName.map((food: any) => (
           <Badge key={food?._id}>
             {food?.foodName} {food?.image} {food?.ingredients} {food?.price}
           </Badge>
@@ -84,7 +84,7 @@ export default function Food() {
           />
         </div>
         <button onClick={addFood}></button>
-      </div>
+      </div> */}
     </div>
   );
 }
