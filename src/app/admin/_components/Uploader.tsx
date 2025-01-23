@@ -15,6 +15,8 @@ export const Uploader = () => {
       data.append("file", file);
       data.append("upload_preset", "food-delivery");
 
+      setLoading(true);
+
       const response = await fetch(
         `https://api.cloudinary.com/v1_1/do0qq0f0b/upload`,
         {

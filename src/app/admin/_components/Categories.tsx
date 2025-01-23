@@ -41,7 +41,7 @@ export default function Category() {
   }, [value]);
 
   return (
-    <div className="w-[1000px] h-[176px] bg-[#ffffff] p-6 gap-6 rounded-xl  ">
+    <div className="w-full h-[176px] bg-[#ffffff] p-6 gap-6 rounded-xl  ">
       <p className="">Dishes category</p>
       <div className="flex items-center gap-4 mt-4 ">
         {categories.map((category) => (
@@ -56,7 +56,9 @@ export default function Category() {
       <Dialog>
         <div className="w-[460px] h-[272px]">
           <DialogTrigger>
-            <div className="bg-red-500 w-10 h-10 rounded-full">+</div>
+            <div className="bg-red-500 w-10 h-10 rounded-full flex items-center justify-center text-white text-xl">
+              +
+            </div>
             {/* <div className="flex  "> */}
           </DialogTrigger>
           <DialogContent>

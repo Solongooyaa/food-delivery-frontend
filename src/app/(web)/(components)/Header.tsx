@@ -12,9 +12,9 @@ export const Header = () => {
     <div className="w-full h-[68px] bg-[#18181B] flex justify-around">
       <div className="w-[146px] h-[44px]">
         <h4 className="text-[#F4F4F5]">NomNom</h4>
-        <h6 className="text-[#F4F4F5] size-[12px]">Swift delivery</h6>
+        <h6 className="text-[#F4F4F5] ">Swift delivery</h6>
       </div>
-      <div>
+      <div className="w-[500px] h-[44px] flex items-center gap-4">
         <input
           type="text"
           placeholder=" Add location"

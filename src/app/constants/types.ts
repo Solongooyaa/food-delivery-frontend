@@ -3,6 +3,13 @@ export type Food = {
   _id: string;
   price: number;
   image: string;
-  ingredient: string;
+  ingredients: string;
   value: string;
 };
+
+type UploaderProps = {
+  onUpload: (url: string) => void;
+
+  // other props
+};
+
