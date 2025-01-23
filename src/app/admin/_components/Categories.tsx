@@ -46,17 +46,17 @@ export default function Category() {
       <div className="flex items-center gap-4 mt-4 ">
         {categories.map((category) => (
           <Badge
-            className="bg-[#ffffff] text-black gap-4 p-2 rounded-full border border-[#E4E4E7] hover:border-red-500 w-[100px]"
+            className="bg-[#ffffff] text-black gap-4 p-2 rounded-full border border-[#E4E4E7] hover:border-red-500 "
             key={category?._id}
           >
-            {category?.categoryName}{" "}
+            {category?.categoryName}
           </Badge>
         ))}
       </div>
       <Dialog>
-        <div className="w-[460px] h-[272px]">
+        <div className="">
           <DialogTrigger>
-            <div className="bg-red-500 w-10 h-10 rounded-full flex items-center justify-center text-white text-xl">
+            <div className="bg-red-500 w-[36px] h-[36px] rounded-full flex items-center justify-center text-white text-xl">
               +
             </div>
             {/* <div className="flex  "> */}

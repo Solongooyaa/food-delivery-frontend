@@ -36,55 +36,5 @@ export default function Food() {
     fetchData();
   }, []);
 
-  return (
-    <div className="w-full h-[176px] bg-[#FFFFFF] mt-6 rounded-lg ">
-      {/* <div className="w-[460px] h-[592px] ">
-        {foodName.map((food: any) => (
-          <Badge key={food?._id}>
-            {food?.foodName} {food?.image} {food?.ingredients} {food?.price}
-          </Badge>
-        ))}
-        <div>
-          <label htmlFor="">Food name</label>
-          <input
-            type="text "
-            placeholder="Type food name"
-            onChange={(e) => {
-              setFoodName(e.target.value);
-            }}
-          />
-        </div>
-
-        <div className="w-">
-          <label htmlFor="">Food image</label>
-          <input
-            type="file"
-            placeholder="Choose a file or drag & drop it here"
-            onChange={Uploader}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Food price</label>
-          <input
-            type="text "
-            placeholder="Enter price..."
-            onChange={(e) => {
-              setPrice(e.target.value);
-            }}
-          />
-        </div>
-        <div>
-          <label htmlFor="">ingredients</label>
-          <input
-            type="number "
-            placeholder="List ingredients..."
-            onChange={(e) => {
-              setIngredients(e.target.value);
-            }}
-          />
-        </div>
-        <button onClick={addFood}></button>
-      </div> */}
-    </div>
-  );
+  return <div className="w-full h-[176px] bg-[#FFFFFF] mt-6 rounded-lg "></div>;
 }

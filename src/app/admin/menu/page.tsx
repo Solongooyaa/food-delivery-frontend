@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   DialogContent,
   Dialog,
@@ -8,19 +8,22 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Category from "../_components/Categories";
+import { Header } from "@/app/(web)/(components)/Header";
+import { Pencil } from "lucide-react";
 
 export default function MenuFood() {
-  const [food, setFood] = useState([
-    {
-      foodName: "",
-      image: "",
-      ingredients: "",
-      price: 0,
-    },
-  ]);
+  const [foods, setFoods] = useState([]);
+
+  const [newFood, setNewFood] = useState({
+    foodName: "",
+    image: "",
+    ingredients: "",
+    price: "",
+  });
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
+      console.log(event.target.files[0]);
       const file = event.target.files[0];
       const data = new FormData();
       data.append("file", file);
@@ -35,7 +38,8 @@ export default function MenuFood() {
       );
 
       const dataJson = await response.json();
-      setFood((prev) => ({ ...prev, image: dataJson.secure_url }));
+      setNewFood((prev) => ({ ...prev, image: dataJson.secure_url }));
+      console.log(dataJson.secure_url);
     }
   };
 
@@ -45,106 +49,124 @@ export default function MenuFood() {
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(food),
+      body: JSON.stringify(newFood),
     });
   };
-  return (
-    <div className="w-full h-screen bg-gray-50 p-6">
-      <div className="w-full h-[300px]] bg-[#FFFFFF] mt-6 rounded-lg px-8 py-16">
-        <h1 className="text-2xl font-bold">Dishes Category</h1>
+  const deleteFood = async (id: string) => {
+    await fetch(`http://localhost:8000/food/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
 
-        <div className="grid grid-cols-2 lg:grid-cols-3 gap-6">
-          {food.map((food: any) => (
-            <div key={food?._id}>
-              {food?.foodName} {food?.image} {food?.ingredients} {food?.price}
+  useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(`http://localhost:8000/food`);
+      const data = await response.json();
+      setFoods(data);
+    };
+    fetchData();
+  }, []);
+  return (
+    <div className="w-full h-[800px]] bg-[#ffffff] mt-4 rounded-xl p-6">
+      <h1 className="text-2xl font-bold">Dishes Category</h1>
+      <div className=" bg-[#FFFFFF] mt-6 rounded-lg flex gap-5">
+        <div className=" flex gap-5">
+          {foods.map((food: any) => (
+            <div
+              className="border border-[#E4E4E7] rounded-xl gap-4"
+              key={food?._id}
+            >
+              <p>{food?.foodName}</p> <p>{food?.image}</p>{" "}
+              <p>{food?.ingredients}</p> <p>{food?.price}</p>
+              <button
+                onClick={() => deleteFood(food._id)}
+                className="w-[44px] h-[44px] text-red-500 bg-[#FFFFFF] rounded-full flex items-center justify-center border"
+              >
+                <Pencil className="" />
+              </button>
             </div>
           ))}
 
           <Dialog>
-            <DialogTrigger className="flex items-center justify-center border-2 border-dashed border-red-500 rounded-lg w-full h-48 text-red-500 text-xl font-bold">
-              <div className=" w-3 h-3 border rounded-full flex flex-col items-center justify-center gap-2">
-                +<p>Add New Dish</p>
+            <DialogTrigger>
+              <div className="flex flex-col items-center justify-center border-2 border-dashed border-red-500 rounded-xl w-[270.75px] h-[241px] text-black text-lg font-bold">
+                <div className=" border rounded-full flex flex-col items-center justify-center gap-2 ">
+                  +
+                </div>
+                <p>Add New Dish</p>
               </div>
             </DialogTrigger>
             <DialogContent>
               <DialogTitle>Add New Dish</DialogTitle>
-              <div className="mt-4 space-y-4">
-                <div className="flex space-x-4">
-                  <div>
-                    <label
-                      htmlFor="foodName"
-                      className="block text-sm font-medium"
-                    >
-                      Food Name
-                    </label>
-                    <input
-                      id="foodName"
-                      onChange={(e) =>
-                        setFood((prev) => [
-                          { ...prev[0], foodName: e.target.value },
-                        ])
-                      }
-                      className="w-full border p-2 rounded-lg"
-                      // onChange={(e) => setFood(e.target.value)}
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="foodPrice"
-                      className="block text-sm font-medium"
-                    >
-                      Price
-                    </label>
-                    <input
-                      id="foodPrice"
-                      type="number"
-                      className="w-full border p-2 rounded-lg"
-                      onChange={(e) =>
-                        setFood((prev) => [
-                          { ...prev[0], price: Number(e.target.value) },
-                        ])
-                      }
-                    />
-                  </div>
-                </div>
 
+              <div className="flex space-x-4">
                 <div>
-                  <label
-                    htmlFor="ingredients"
-                    className="block text-sm font-medium"
-                  >
-                    Ingredients
+                  <label htmlFor="foodName" className=" text-sm font-medium">
+                    Food Name
                   </label>
                   <input
-                    id="ingredients"
-                    type="text"
+                    id="foodName"
+                    onChange={(e) =>
+                      setNewFood((prev) => ({
+                        ...prev,
+                        foodName: e.target.value,
+                      }))
+                    }
+                    className="w-full border p-2 rounded-lg"
+                  />
+                </div>
+                <div>
+                  <label htmlFor="foodPrice" className=" text-sm font-medium">
+                    Price
+                  </label>
+                  <input
+                    id="foodPrice"
+                    type="number"
                     className="w-full border p-2 rounded-lg"
                     onChange={(e) =>
-                      setFood((prev) => [
-                        { ...prev[0], ingredients: e.target.value },
-                      ])
+                      setNewFood((prev) => ({
+                        ...prev,
+                        price: e.target.value,
+                      }))
                     }
                   />
                 </div>
-                <div>
-                  <label
-                    htmlFor="foodImage"
-                    className="block text-sm font-medium"
-                  >
-                    Food Image
-                  </label>
-                  <input
-                    placeholder="Choose a file or drag & drop it here"
-                    type="file"
-                    onChange={handleUpload}
-                  />
-
-                  {food?.image && <img src={food?.image} alt="" />}
-                </div>
               </div>
+
+              <div>
+                <label htmlFor="ingredients" className=" text-sm font-medium">
+                  Ingredients
+                </label>
+                <input
+                  id="ingredients"
+                  type="text"
+                  className="w-full border p-2 rounded-lg"
+                  onChange={(e) =>
+                    setNewFood((prev) => ({
+                      ...prev,
+                      ingredients: e.target.value,
+                    }))
+                  }
+                />
+              </div>
+              <div>
+                <label htmlFor="foodImage" className=" text-sm font-medium">
+                  Food Image
+                </label>
+                <input
+                  placeholder="Choose a file or drag & drop it here"
+                  type="file"
+                  onChange={handleUpload}
+                />
+                {newFood?.image && <img src={newFood?.image} alt="" />}
+              </div>
+
               <button
                 onClick={addFood}
-                className="w-full bg-red-500 text-white p-2 rounded-lg"
+                className="w-full bg-[#18181B] text-white p-2 rounded-md"
               >
                 Add Dish
               </button>

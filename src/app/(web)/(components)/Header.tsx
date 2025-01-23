@@ -23,7 +23,7 @@ export const Header = () => {
         <ClerkProvider>
           <SignedOut>
             <SignInButton />
-            <button className="text-white"></button>
+            <button className="text-white border rounded-md"></button>
           </SignedOut>
           <SignedIn>
             <UserButton />
