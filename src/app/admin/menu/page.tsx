@@ -8,7 +8,6 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import Category from "../_components/Categories";
-import { Header } from "@/app/(web)/(components)/Header";
 import { Pencil } from "lucide-react";
 
 export default function MenuFood() {
@@ -69,17 +68,21 @@ export default function MenuFood() {
     };
     fetchData();
   }, []);
+
   return (
-    <div className="w-full h-[800px]] bg-[#ffffff] mt-4 rounded-xl p-6">
+    <div className="w-full h-[800px] bg-[#ffffff] mt-4 rounded-xl p-6">
       <h1 className="text-2xl font-bold">Dishes Category</h1>
-      <div className=" bg-[#FFFFFF] mt-6 rounded-lg flex gap-5">
+      <div className=" bg-[#FFFFFF] mt-6 rounded-lg flex gap-5 w-full h-[241px]">
         <div className=" flex gap-5">
           {foods.map((food: any) => (
             <div
               className="border border-[#E4E4E7] rounded-xl gap-4"
               key={food?._id}
             >
-              {food?.foodName} {food?.image} {food?.ingredients} {food?.price}
+              <div className="text-[#EF4444]">{food?.foodName}</div>
+              <img src={food?.image} />
+              <div>{food?.ingredients}</div>
+              <div>{food?.price}</div>
               <button
                 onClick={() => deleteFood(food._id)}
                 className="w-[44px] h-[44px] text-red-500 bg-[#FFFFFF] rounded-full flex items-center justify-center border"
@@ -95,7 +98,7 @@ export default function MenuFood() {
                 <div className=" border rounded-full flex flex-col items-center justify-center gap-2 ">
                   +
                 </div>
-                <p>Add New Dish</p>
+                <p>Add new Dish to </p>
               </div>
             </DialogTrigger>
             <DialogContent>

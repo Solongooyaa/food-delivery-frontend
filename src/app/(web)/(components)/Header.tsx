@@ -17,7 +17,7 @@ export const Header = () => {
       <div className="w-[500px] h-[44px] flex items-center gap-4">
         <input
           type="text"
-          placeholder=" Add location"
+          placeholder="    Add location"
           className="radius rounded-full"
         />
         <ClerkProvider>
