@@ -79,8 +79,7 @@ export default function MenuFood() {
               className="border border-[#E4E4E7] rounded-xl gap-4"
               key={food?._id}
             >
-              <p>{food?.foodName}</p> <p>{food?.image}</p>{" "}
-              <p>{food?.ingredients}</p> <p>{food?.price}</p>
+              {food?.foodName} {food?.image} {food?.ingredients} {food?.price}
               <button
                 onClick={() => deleteFood(food._id)}
                 className="w-[44px] h-[44px] text-red-500 bg-[#FFFFFF] rounded-full flex items-center justify-center border"
