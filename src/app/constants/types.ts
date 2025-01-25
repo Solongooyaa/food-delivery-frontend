@@ -13,3 +13,11 @@ type UploaderProps = {
   // other props
 };
 
+export type CustomRequest = Request & {
+  userId: string;
+};
+
+export type PageInfo = {
+  currentPage: number;
+  totalPages: number;
+};

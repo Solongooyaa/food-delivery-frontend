@@ -8,6 +8,7 @@ import {
 } from "@/components/ui/dialog";
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import { ClerkProvider, SignInButton } from "@clerk/nextjs";
+import { Plus } from "lucide-react";
 
 import React from "react";
 import { useEffect, useState } from "react";
@@ -73,8 +74,8 @@ export default function Category() {
       </div>
       <Dialog>
         <DialogTrigger>
-          <div className="bg-red-500 w-[36px] h-[36px] rounded-full flex items-center justify-center text-white text-xl">
-            +
+          <div className="text-white bg-red-500 flex items-center justify-center w-12 h-12 border border-gray-200 rounded-full  size-sm">
+            <Plus />
           </div>
         </DialogTrigger>
         <DialogContent className="w-[460px] h-[272px]">
@@ -86,12 +87,12 @@ export default function Category() {
             onChange={(e) => setValue(e.target.value)}
           />
           <div className="flex items-end justify-end w-[412px] h-[64px] ">
-            <button
-              className="bg-black w-[123px] h-[40px] rounded  text-white"
+            <div
+              className="bg-[#18181B] w-[123px] h-[40px] rounded flex justify-center items-center text-white"
               onClick={() => addCategory(value)}
             >
               add
-            </button>
+            </div>
           </div>
         </DialogContent>
       </Dialog>

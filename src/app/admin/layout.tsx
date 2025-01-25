@@ -27,19 +27,19 @@ export default function AdminLayout({
 
         <div className="w-[165px] h-[168px] ">
           <Link href={"/admin"}>
-            <button className="w-[150px] py-3 px-4 hover:bg-[#18181B] hover:text-[#FAFAFA] text-black rounded-full border flex gap-1">
+            <button className="w-[150px] py-3 px-4 hover:bg-[#18181B] hover:text-[#FAFAFA] text-black rounded-full flex gap-1 ">
               <LayoutDashboardIcon />
               Food menu
             </button>
           </Link>
           <Link href={"/admin/order"}>
-            <button className="w-[150px] py-3 px-4 hover:bg-[#18181B] hover:text-[#FAFAFA] text-black rounded-full border flex gap-3">
+            <button className="w-[150px] py-3 px-4 hover:bg-[#18181B] hover:text-[#FAFAFA] text-black rounded-full flex gap-3">
               <TruckIcon />
               Orders
             </button>
           </Link>
           <Link href={"/"}>
-            <button className="w-[150px] py-3 px-4 hover:bg-[#18181B] hover:text-[#FAFAFA] text-black rounded-full border flex gap-3">
+            <button className="w-[150px] py-3 px-4 hover:bg-[#18181B] hover:text-[#FAFAFA] text-black rounded-full flex gap-3">
               <SettingsIcon />
               Settings
             </button>

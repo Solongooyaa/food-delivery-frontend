@@ -1,17 +1,28 @@
+"use client";
+import {
+  ColumnDef,
+  flexRender,
+  getCoreRowModel,
+  useReactTable,
+} from "@tanstack/react-table";
+
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table";
+
 export default function AdminOrderPage() {
-  const onPost async (postPath: string, body: any) => {
-    fetch(`http://localhost:3000/api/${postPath}`, {
-      method: "POST",
-      headers: {
-        authentication: token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-  };
   return (
-    <div className="w-[1171px] h-[948px]">
-      <h1>AdminOrderPage</h1>
+    <div className="w-[1171px] h-[948px] bg-[#ffffff] rounded">
+      <div className="flex justify-between items-center p-6">
+        <h1>Orders</h1>
+        <input type="date" className="w-40 h-10 border" />
+      </div>
+      <Table></Table>
     </div>
   );
 }
