@@ -10,15 +10,22 @@ import {
 import Category from "../_components/Categories";
 import { Pencil } from "lucide-react";
 import { Plus } from "lucide-react";
+import { useAuthFetch } from "../_components/useFetchData";
+import { useSearchParams } from "next/navigation";
 
 export default function MenuFood() {
-  const [foods, setFoods] = useState([]);
+  const searchParams = useSearchParams();
+  const category = searchParams.get("category");
+  const { data: foods, setData: setFoods } = useAuthFetch(
+    `food?category=${category}`
+  );
 
   const [newFood, setNewFood] = useState({
     foodName: "",
     image: "",
     ingredients: "",
     price: "",
+    category: category,
   });
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -68,19 +75,10 @@ export default function MenuFood() {
     }
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(`http://localhost:8000/food`);
-      const data = await response.json();
-      setFoods(data);
-    };
-    fetchData();
-  }, []);
-
   return (
     <div className="w-full h-[800px] bg-white mt-6 rounded-2xl p-6 ">
       <h1 className="text-3xl font-bold text-gray-800">Dishes Category</h1>
-      <div className="bg-white mt-8 rounded-lg flex gap-6 w-full h-[250px] ">
+      <div className="bg-white mt-8 rounded-lg flex gap-6 w-full ">
         <div className="flex gap-6">
           {foods.map((food: any) => (
             <div

@@ -9,67 +9,65 @@ import {
 import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import { ClerkProvider, SignInButton } from "@clerk/nextjs";
 import { Plus } from "lucide-react";
+import Link from "next/link";
+import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 import React from "react";
 import { useEffect, useState } from "react";
-// import { useAuthFetch } from "./useFetchData";
+import { useAuthFetch } from "./useFetchData";
+
 type Category = {
   categoryName: string;
   _id: string;
 };
 
 export default function Category() {
-  const [categories, setCategories] = useState<Category[]>([]);
-  const [value, setValue] = useState<any>([]);
+  const pathname = usePathname();
+  const searchParam = useSearchParams();
+  const choosenCategory = searchParam.get("category");
+  const router = useRouter();
 
-  const addCategory = async (value: any) => {
-    const categoryName: any = [categories, value];
-    await fetch(`http://localhost:8000/food-category`, {
+  const [newCategoryName, setNewCategoryName] = useState("");
+
+  const { isLoading, data: categories } = useAuthFetch("food-category");
+
+  const addCategory = async () => {
+    const response = await fetch(`http://localhost:8000/food-category`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ categoryName: value }),
+      body: JSON.stringify({ categoryName: newCategoryName }),
     });
-
-    setCategories(value);
+    response.json();
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch("http://localhost:8000/food-category");
-      const data = await response.json();
-      setCategories(data);
-    };
-    fetchData();
-  }, [value]);
+  //
 
-  // const { isLoading, data: categories } = useAuthFetch<Category[]>("category");
-
-  // if (isLoading) return <div>Loading...</div>;
+  if (isLoading) return <div>Loading...</div>;
   return (
-    // <div>
-    //   <ClerkProvider>
-    //     <SignedOut>
-    //       <SignInButton />
-    //       <button className="text-white border rounded-md end"></button>
-    //     </SignedOut>
-    //     <SignedIn>
-    //       <UserButton />
-    //       <button className="text-white"></button>
-    //     </SignedIn>
-    //   </ClerkProvider>
-
-    <div className="w-full h-[176px] bg-[#ffffff] p-6 gap-6 rounded-xl  ">
-      <p className="">Dishes category</p>
-      <div className="flex items-center gap-4 mt-4 ">
-        {categories.map((category: Category) => (
-          <Badge
-            className="bg-[#ffffff] text-black gap-4 p-2 rounded-full border border-[#E4E4E7] hover:border-red-500 "
+    <div className="w-full min-h-[200px] bg-white p-6 gap-6 rounded-xl">
+      <p className="font-bold">Dishes category</p>
+      <div className="flex items-center gap-3 mt-6 overflow-x-auto flex-wrap justify-start">
+        {categories?.map((category: Category) => (
+          <div
+            className={` ${
+              category._id === choosenCategory
+                ? "bg-[#EF4444] text-white"
+                : "bg-[#ffffff] text-black"
+            } gap-4 p-2 rounded-full border border-[#E4E4E7] hover:border-red-500 `}
             key={category?._id}
           >
-            {category?.categoryName}
-          </Badge>
+            <div
+              onClick={() => {
+                const newParams = new URLSearchParams(searchParam.toString());
+                newParams.set("category", category._id);
+                router.push(pathname + "?" + newParams.toString());
+              }}
+            >
+              {category?.categoryName}
+            </div>
+          </div>
         ))}
       </div>
       <Dialog>
@@ -84,12 +82,12 @@ export default function Category() {
           <input
             className="border rounded-lg w-[412px] h-[38px]"
             placeholder="  Type category name..."
-            onChange={(e) => setValue(e.target.value)}
+            onChange={(e) => setNewCategoryName(e.target.value)}
           />
           <div className="flex items-end justify-end w-[412px] h-[64px] ">
             <div
               className="bg-[#18181B] w-[123px] h-[40px] rounded flex justify-center items-center text-white"
-              onClick={() => addCategory(value)}
+              onClick={addCategory}
             >
               add
             </div>

@@ -7,7 +7,7 @@ export const Footer = () => {
         <h2> Fresh fast delivered</h2>
         <h2> Fresh fast delivered</h2>
       </div>
-      <div className="w-[1264px] h-[228px] flex justify-around items-start text-[#FAFAFA] mt-[228px] gap-[220px] ml-[88px]">
+      <div className="w-full h-[228px] flex justify-around items-start text-[#FAFAFA] mt-[228px] gap-[220px] ml-[88px]">
         <div>
           <h4> NOMNOM</h4>
           <p>Swift delivery</p>
@@ -43,7 +43,7 @@ export const Footer = () => {
           </div>
         </div>
       </div>
-      <div className="w-[1264px] h-[92px] mt-[60px] text-[#71717A] flex gap-12 top-[560px] ml-[88px] text-[14px] ">
+      <div className="w-full h-[92px] mt-[60px] text-[#71717A] flex gap-12 top-[560px] ml-[88px] text-[14px] ">
         <p>Copy right 2024 © Nomnom LLC</p>
         <p>Privacy policy </p>
         <p>Terms and conditoin</p>
