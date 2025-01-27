@@ -15,9 +15,16 @@ import { useSearchParams } from "next/navigation";
 
 export default function MenuFood() {
   const searchParams = useSearchParams();
-  const category = searchParams.get("category");
+  const category = searchParams.get("category") || "";
+  // if (category) {
+  //   const { data: foods, setData: setFoods } = useAuthFetch(
+  //     `food?categoryId=${category}`
+  //   );
+  // } else {
+  //   const { data: foods, setData: setFoods } = useAuthFetch(`food`);
+  // }
   const { data: foods, setData: setFoods } = useAuthFetch(
-    `food?category=${category}`
+    `food?categoryId=${category}`
   );
 
   const [newFood, setNewFood] = useState({
@@ -80,7 +87,7 @@ export default function MenuFood() {
       <h1 className="text-3xl font-bold text-gray-800">Dishes Category</h1>
       <div className="bg-white mt-8 rounded-lg flex gap-6 w-full ">
         <div className="flex gap-6">
-          {foods.map((food: any) => (
+          {foods?.map((food: any) => (
             <div
               className="flex flex-col max-w-[280px] w-full bg-white border border-gray-200 rounded-xl duration-300"
               key={food?._id}
@@ -90,17 +97,11 @@ export default function MenuFood() {
                 className="w-[365.33px] h-[210px] object-cover rounded-t-xl"
               />
               <button
-                onClick={() => deleteFood(food._id)}
+                onClick={() => deleteFood(food?._id)}
                 className="w-[44px] h-[44px] text-red-500 bg-white rounded-full flex items-center justify-center border border-gray-300"
               >
                 <Pencil className="w-5 h-5 " />
               </button>
-              {/* <button
-                onClick={() => deleteFood(food._id)}
-                className="w-[50px] h-[50px] text-red-500 bg-white rounded-full flex items-center justify-center border"
-              >
-                <Pencil className="w-5 h-5 text-white" />
-              </button> */}
 
               <div className="p-4 flex flex-col gap-2">
                 <div className="flex justify-between items-center text-2xl font-semibold text-[#EF4444]">

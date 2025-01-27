@@ -20,7 +20,7 @@ export const Header = () => {
           <input
             type="text"
             placeholder="  Add location"
-            className="radius rounded-full"
+            className="radius rounded-full flex items-end"
           />
         </div>
 

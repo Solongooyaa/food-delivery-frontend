@@ -13,7 +13,7 @@ import Link from "next/link";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
 
 import React from "react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useAuthFetch } from "./useFetchData";
 
 type Category = {
