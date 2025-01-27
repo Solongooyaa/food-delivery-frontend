@@ -1,0 +1,29 @@
+/* .text-animation-infinite-scroll {
+  white-space: nowrap;
+  animation: infinite-scroll 2s linear infinite;
+}
+
+@keyframes infinite-scroll {
+  0% {
+    transform: translateX(10%);
+  }
+  100% {
+    transform: translateX(-10%);
+  }
+} */
+.text-animation-infinite-scroll {
+  overflow: hidden;
+  white-space: nowrap;
+  display: flex;
+  gap: 1rem;
+  animation: scroll-left 10s linear infinite;
+}
+
+@keyframes scroll-left {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(-100%);
+  }
+}

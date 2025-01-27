@@ -84,7 +84,7 @@ export default function MenuFood() {
 
   return (
     <div className="w-full h-[800px] bg-white mt-6 rounded-2xl p-6 ">
-      <h1 className="text-3xl font-bold text-gray-800">Dishes Category</h1>
+      <h1 className="text-3xl font-bold text-gray-800">{category}</h1>
       <div className="bg-white mt-8 rounded-lg flex gap-6 w-full ">
         <div className="flex gap-6">
           {foods?.map((food: any) => (
