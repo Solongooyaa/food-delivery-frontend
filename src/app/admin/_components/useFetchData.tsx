@@ -1,4 +1,4 @@
-import { ClerkProvider, useAuth } from "@clerk/nextjs";
+import { useAuth } from "@clerk/nextjs";
 import { useEffect, useState } from "react";
 
 export function useAuthFetch(path: string) {
@@ -10,7 +10,7 @@ export function useAuthFetch(path: string) {
 
     fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${path}`, {
       headers: {
-        Authentication: token,
+        authentication: token,
       },
     })
       .then((response) => response.json())

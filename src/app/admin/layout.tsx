@@ -5,7 +5,7 @@ import {
   SignedOut,
   UserButton,
 } from "@clerk/nextjs";
-import { Header } from "../(web)/(components)/Header";
+import { Header } from "../web/(components)/Header";
 import Link from "next/link";
 import { LayoutDashboardIcon, SettingsIcon, TruckIcon } from "lucide-react";
 

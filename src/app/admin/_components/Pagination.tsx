@@ -1,5 +1,4 @@
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { use } from "react";
 
 export const Pagination = () => {
   const pathName = usePathname();

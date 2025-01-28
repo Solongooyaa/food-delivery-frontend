@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { Header } from "./(web)/(components)/Header";
-import { Footer } from "./(web)/(components)/Footer";
+import { Header } from "./web/(components)/Header";
+import { Footer } from "./web/(components)/Footer";
 import { ClerkProvider } from "@clerk/nextjs";
-import { Banner } from "./(web)/(components)/Banner";
+import { Banner } from "./web/(components)/Banner";
+import { useAuthFetch } from "./admin/_components/useFetchData";
 
 export default function Home() {
   const [categories, setCategories] = useState<
@@ -37,15 +38,21 @@ export default function Home() {
     };
     fetchData();
   });
+  // const { isLoading, data: categories } = useAuthFetch("food-category");
+  // if (isLoading) return <div>Loading...</div>;
+
+  // const { data: foods, setData: setFoods } = useAuthFetch(
+  //   `food?categoryId=${category}`
+  // );
 
   return (
-    <div className="font-sans bg-grey-dark">
+    <div className="w-full h-[1800px] font-sans bg-grey-dark">
       <ClerkProvider>
         <Header />
       </ClerkProvider>
       <Banner />
-      {/* Categories Section */}
-      <div className="w-full h-auto flex  gap-6 mt-8 px-6">
+
+      <div className="w-full flex  gap-6 mt-8 px-6">
         {categories.map((category) => (
           <div
             key={category._id}
@@ -55,7 +62,7 @@ export default function Home() {
           </div>
         ))}
       </div>
-      <div> Appetizer</div>
+      <div>Appetizer</div>
       <div className="w-full h-auto flex flex-wrap gap-6 mt-10 px-6">
         {foods.map((food) => (
           <div
