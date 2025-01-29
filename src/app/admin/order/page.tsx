@@ -13,20 +13,20 @@ import {
 } from "@/components/ui/table";
 
 export default function AdminOrderPage() {
-  const { getToken } = useAuth();
-  const [data, setData] = useState([]);
+  // const { getToken } = useAuth();
+  // const [data, setData] = useState([]);
 
-  const onPost = async (postPath: string, body: any) => {
-    const token = await getToken();
-    fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${postPath}`, {
-      method: "POST",
-      headers: {
-        authentication: token,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(body),
-    });
-  };
+  // const onPost = async (postPath: string, body: any) => {
+  //   const token = await getToken();
+  //   fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/${postPath}`, {
+  //     method: "POST",
+  //     headers: {
+  //       authentication: token,
+  //       "Content-Type": "application/json",
+  //     },
+  //     body: JSON.stringify(body),
+  //   });
+  // };
   return (
     <div className="w-[1171px] h-[948px] bg-[#ffffff] rounded">
       <div className="flex justify-between items-center p-6">
@@ -34,9 +34,9 @@ export default function AdminOrderPage() {
         <input type="date" className="w-40 h-10 border rounded-full" />
       </div>
       <div>
-        {data?.map((user: any) => (
+        {/* {data?.map((user: any) => (
           <div key={user.id}></div>
-        ))}
+        ))} */}
         <Table>
           <TableCaption></TableCaption>
           <TableHeader>

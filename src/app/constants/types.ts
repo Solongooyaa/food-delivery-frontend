@@ -6,11 +6,13 @@ export type Food = {
   ingredients: string;
   value: string;
 };
+export type Category = {
+  _id: string;
+  categoryName: string;
+};
 
 type UploaderProps = {
   onUpload: (url: string) => void;
-
-  // other props
 };
 
 export type CustomRequest = Request & {

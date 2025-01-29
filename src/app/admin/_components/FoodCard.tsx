@@ -6,13 +6,14 @@ import {
   DialogTrigger,
   DialogTitle,
 } from "@/components/ui/dialog";
-import Category from "../_components/Categories";
+import Category from "./Categories";
 import { Pencil } from "lucide-react";
 import { Plus } from "lucide-react";
-import { useAuthFetch } from "../_components/useFetchData";
+import { useAuthFetch } from "./useFetchData";
 import { useSearchParams } from "next/navigation";
+import { on } from "process";
 
-export default function MenuFood() {
+export const FoodCard = () => {
   const searchParams = useSearchParams();
   const category = searchParams.get("category") || "";
   // if (category) {
@@ -34,6 +35,7 @@ export default function MenuFood() {
     category: category,
   });
   // console.log(category);
+  const [oneFood, setOneFood] = useState();
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -81,11 +83,14 @@ export default function MenuFood() {
     }
     console.log(setFoods(foods.filter((food: any) => food._id !== id)));
   };
-
+  //   const oneFood = `/admin/menu`;
   return (
     <div className="w-full h-[800px] bg-white mt-6 rounded-2xl p-6 ">
       <h1 className="text-3xl font-bold text-gray-800">category</h1>
-      <div className="bg-white mt-8 rounded-lg flex gap-6 w-full overflow-x-auto flex-wrap justify-start">
+      <div
+        // onClick={oneFood}
+        className="bg-white mt-8 rounded-lg flex gap-6 w-full overflow-x-auto flex-wrap justify-start"
+      >
         {/* <div className="flex gap-6 "> */}
         {foods?.map((food: any) => (
           <div
@@ -227,4 +232,4 @@ export default function MenuFood() {
       {/* </div> */}
     </div>
   );
-}
+};

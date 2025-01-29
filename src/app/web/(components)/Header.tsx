@@ -6,6 +6,7 @@ import {
   UserButton,
 } from "@clerk/nextjs";
 import { ShoppingCart, LocateIcon } from "lucide-react";
+import Link from "next/link";
 
 export const Header = () => {
   return (
@@ -21,10 +22,11 @@ export const Header = () => {
             placeholder="Add location"
             className="w-[300px] h-[40px] pl-12 pr-4 rounded-full border border-gray-300 focus:ring-2 focus:ring-red-500 focus:outline-none"
           />
-          <LocateIcon className=" top-[10px] left-4 text-gray-400" />
         </div>
         <div className="bg-[#F4F4F5] rounded-full w-[40px] h-[40px] flex items-center justify-center hover:text-white transition duration-300">
+          {/* <Link href={"/ordersheet"}> */}
           <ShoppingCart className="w-5 h-5" />
+          {/* </Link> */}
         </div>
         <ClerkProvider>
           <SignedOut>

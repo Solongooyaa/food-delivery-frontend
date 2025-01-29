@@ -1,6 +1,6 @@
 "use client";
 import Category from "./_components/Categories";
-import AdminMenuPage from "./menu/page";
+import { FoodCard } from "./_components/FoodCard";
 import {
   ClerkProvider,
   SignedIn,
@@ -31,7 +31,7 @@ export default function Home() {
 
       <div className="w-full h-screen mt-4">
         <Category />
-        <AdminMenuPage />
+        <FoodCard />
       </div>
     </div>
   );
