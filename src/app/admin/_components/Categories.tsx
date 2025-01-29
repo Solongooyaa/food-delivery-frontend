@@ -29,7 +29,6 @@ export default function Category() {
   const [newCategoryName, setNewCategoryName] = useState("");
 
   const { isLoading, data: categories } = useAuthFetch("food-category");
-  // console.log(categories);
 
   const addCategory = async () => {
     const response = await fetch(`http://localhost:8000/food-category`, {
