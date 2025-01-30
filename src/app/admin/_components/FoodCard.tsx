@@ -16,13 +16,6 @@ import { on } from "process";
 export const FoodCard = () => {
   const searchParams = useSearchParams();
   const category = searchParams.get("category") || "";
-  // if (category) {
-  //   const { data: foods, setData: setFoods } = useAuthFetch(
-  //     `food?categoryId=${category}`
-  //   );
-  // } else {
-  //   const { data: foods, setData: setFoods } = useAuthFetch(`food`);
-  // }
   const { data: foods, setData: setFoods } = useAuthFetch(
     `food?categoryId=${category}`
   );
@@ -35,7 +28,6 @@ export const FoodCard = () => {
     category: category,
   });
   // console.log(category);
-  const [oneFood, setOneFood] = useState();
 
   const handleUpload = async (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {

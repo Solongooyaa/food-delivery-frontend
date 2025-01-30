@@ -16,8 +16,9 @@ export const WebCategory = () => {
 
   return (
     <div className="w-full">
+      <h2 className="size-[50px] mt-6 pl-8">Categories</h2>
       <Carousel className="w-full pl-4">
-        <CarouselContent className="flex mt-8 p-4 overflow-x-auto scrollbar-hide">
+        <CarouselContent className="flex mt-4 p-4 overflow-x-auto scrollbar-hide">
           <div className="flex items-center justify-center gap-4">
             {categories.map((category: Category) => (
               <div

@@ -1,37 +1,3 @@
-// import { Button } from "@/components/ui/button";
-// import { Input } from "@/components/ui/input";
-// import { Label } from "@/components/ui/label";
-// import {
-//   Sheet,
-//   SheetClose,
-//   SheetContent,
-//   SheetDescription,
-//   SheetFooter,
-//   SheetHeader,
-//   SheetTitle,
-//   SheetTrigger,
-// } from "@/components/ui/sheet";
-
-// export const OrderSheet = () => {
-//   const existingOrderString = localStorage.getItem("orderItems");
-//   const existingOrder = JSON.parse(existingOrderString || "[]");
-//   return (
-//     <Sheet>
-//       <SheetTrigger asChild>
-//         <Button variant="outline">Open</Button>
-//       </SheetTrigger>
-//       <SheetContent>
-//         <SheetTitle>Order</SheetTitle>
-//         <div>{existingOrder[0].food?.foodName}</div>
-//         <SheetFooter>
-//           <SheetClose asChild>
-//             <Button type="submit">Save changes</Button>
-//           </SheetClose>
-//         </SheetFooter>
-//       </SheetContent>
-//     </Sheet>
-//   );
-// };
 "use client";
 
 import { useEffect, useState } from "react";
@@ -44,7 +10,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { ShoppingBasket, ShoppingCart } from "lucide-react";
+import { Pencil, ShoppingBasket, ShoppingCart } from "lucide-react";
 import { OrderItem } from "@/app/constants/types";
 
 export const OrderSheet = () => {
@@ -52,7 +18,49 @@ export const OrderSheet = () => {
   const existingOrder = JSON.parse(existingOrderString || "[]");
   const [foodOrderItems, setFoodOrderItems] =
     useState<OrderItem[]>(existingOrder);
+  const onMinusOrderItems = (idx: number) => {
+    const newOrderItems = foodOrderItems.map((orderItem, index) => {
+      if (idx === index && orderItem.quantity > 1) {
+        return {
+          ...orderItem,
+          quantity: orderItem.quantity - 1,
+        };
+      } else {
+        return orderItem;
+      }
+    });
+    setFoodOrderItems(newOrderItems);
+    localStorage.setItem("orderItems", JSON.stringify(newOrderItems));
+  };
+  const onPlusOrderItems = (idx: number) => {
+    const newOrderItems = foodOrderItems.map((orderItem, index) => {
+      if (idx === index) {
+        return {
+          ...orderItem,
+          quantity: orderItem.quantity + 1,
+        };
+      } else {
+        return orderItem;
+      }
+    });
+    setFoodOrderItems(newOrderItems);
+    localStorage.setItem("orderItems", JSON.stringify(newOrderItems));
+  };
+//   const deleteFood = async (id: string) => {
+//     const response = await fetch(`http://localhost:8000/food/${id}`, {
+//       method: "DELETE",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//     });
 
+//     if (response.ok) {
+//       setFoods(foods.filter((food: any) => food._id !== id));
+//     } else {
+//       console.error("Failed to delete food");
+//     }
+//     console.log(setFoods(foods.filter((food: any) => food._id !== id)));
+//   };
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -63,22 +71,51 @@ export const OrderSheet = () => {
           <ShoppingCart className="w-5 h-5"></ShoppingCart>
         </Button>
       </SheetTrigger>
-      <SheetContent>
-        <SheetTitle>Order</SheetTitle>
-        <div>
-          {existingOrder.map((orderItem: any) => (
-            <div key={orderItem?.food?._id}>
-              <div>{orderItem?.food?.foodName}</div>
-              <button>-</button>
-              <div>{orderItem?.quantity}</div>
-              <button>+</button>
+      <SheetContent className="bg-[#404040]">
+        <SheetTitle className="flex gap-4 w-[471px] h-[28px] text-[#FAFAFA]">
+          <ShoppingCart></ShoppingCart>
+          Order Details
+        </SheetTitle>
+        <div className="w-[350px] h-[540px] bg-[#ffffff] gap-4 mt-4 rounded-xl">
+          <p className="pt-4 pl-2">My Cart</p>
+          {existingOrder.map((orderItem: any, idx: number) => (
+            <div className="flex gap-4 mt-2 pl-2" key={orderItem?.food?._id}>
+              <div className="w-[120px] rounded-xl mt-4">
+                <img
+                  src={orderItem?.food?.image}
+                  className="object-cover rounded-xl"
+                />
+              </div>
+              <div className="w-[200px] h-[120px] ">
+                {/* <button
+                  onClick={() => deleteFood(food?._id)}
+                  className="w-[44px] h-[44px] text-red-500 bg-white rounded-full flex items-center justify-center border border-gray-300"
+                >
+                  <Pencil className="w-5 h-5 " />
+                </button> */}
+                <p className="text-[#EF4444]">{orderItem?.food?.foodName}</p>
+                <p className="text-sm text-gray-600">
+                  {orderItem?.food.ingredients}
+                </p>
+                <div className="flex gap-4">
+                  <button onClick={() => onMinusOrderItems(idx)}>-</button>
+                  <p>{orderItem?.quantity}</p>
+                  <button onClick={() => onPlusOrderItems(idx)}>+</button>
+                  <div>{orderItem?.food?.price}₮</div>
+                </div>
+              </div>
             </div>
           ))}
+          <div className="flex justify-center items-center border rounded-full ">
+            Add food
+          </div>
         </div>
 
         <SheetFooter>
           <SheetClose asChild>
-            <Button type="submit">Save changes</Button>
+            <Button className="mt-4" type="submit">
+              Checkout
+            </Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>
