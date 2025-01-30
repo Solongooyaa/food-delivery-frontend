@@ -11,8 +11,9 @@ export type Category = {
   categoryName: string;
 };
 
-type UploaderProps = {
-  onUpload: (url: string) => void;
+export type OrderItem = {
+  food: string;
+  quantity: number;
 };
 
 export type CustomRequest = Request & {

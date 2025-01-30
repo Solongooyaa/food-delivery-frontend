@@ -11,8 +11,12 @@ import { useAuthFetch } from "./admin/_components/useFetchData";
 import { Food, Category } from "./constants/types";
 import { Plus } from "lucide-react";
 import { OrderSheet } from "./web/(components)/OrderSheet";
+import { WebCategory } from "./web/(components)/WebCategory";
+import { WebFood } from "./web/(components)/WebFood";
 
 export default function Home() {
+  // const [foods, setFoods] = useState<Food[]>([]);
+
   const pathname = usePathname();
   const searchParam = useSearchParams();
   const choosenCategory = searchParam.get("category");
@@ -33,69 +37,8 @@ export default function Home() {
         <Header />
       </ClerkProvider>
       <Banner />
-      <Carousel className="w-full pl-4">
-        <CarouselContent className="flex mt-8 p-4 overflow-x-auto scrollbar-hide">
-          <div className="flex items-center justify-center gap-4">
-            {categories.map((category: Category) => (
-              <div
-                key={category?._id}
-                className={` ${
-                  category._id === choosenCategory
-                    ? "bg-[#EF4444] text-white"
-                    : "bg-[#ffffff] text-black"
-                } gap-4 rounded-full border border-[#E4E4E7] text-lg font-medium py-2 px-6 whitespace-nowrap`}
-              >
-                <div
-                  onClick={() => {
-                    const newParams = new URLSearchParams(
-                      searchParam.toString()
-                    );
-                    newParams.set("category", category._id);
-                    router.push(pathname + "?" + newParams.toString());
-                  }}
-                >
-                  {category?.categoryName}
-                </div>
-              </div>
-            ))}
-          </div>
-        </CarouselContent>
-      </Carousel>
-
-      <div className="px-6 mt-10">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">Appetizers</h2>
-        <div className="w-full flex flex-wrap gap-6">
-          {foods.map((food: Food) => (
-            <div
-              key={food?._id}
-              className="flex flex-col  max-w-[280px] w-full bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-md duration-300"
-            >
-              <img
-                src={food?.image}
-                alt={food?.foodName}
-                className="w-[365.33px] h-[210px] object-cover rounded-t-xl"
-              />
-              <div className="p-4 flex flex-col gap-2">
-                <div className="flex justify-between items-center text-2xl font-semibold text-[#EF4444]">
-                  {food?.foodName}
-                  <span className="text-lg font-bold text-[#18181B]">
-                    {food?.price}₮
-                  </span>
-                </div>
-                <button
-                  onClick={OrderSheet}
-                  className="w-8 h-8 flex justify-center items-center rounded-full bg-red-500 text-white"
-                >
-                  <Plus className=" " />
-                </button>
-
-                <p className="text-sm text-gray-600">{food?.ingredients}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-
+      <WebCategory />
+      <WebFood />
       <Footer />
     </div>
   );
