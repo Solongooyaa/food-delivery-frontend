@@ -16,9 +16,11 @@ export const WebCategory = () => {
 
   return (
     <div className="w-full">
-      <h2 className="size-[50px] mt-6 pl-8">Categories</h2>
+      <p className="w-full h-[30px] text-2xl font-medium mt-4 pl-8">
+        Categories
+      </p>
       <Carousel className="w-full pl-4">
-        <CarouselContent className="flex mt-4 p-4 overflow-x-auto scrollbar-hide">
+        <CarouselContent className="flex mt-2 p-4 overflow-x-auto scrollbar-hide">
           <div className="flex items-center justify-center gap-4">
             {categories.map((category: Category) => (
               <div

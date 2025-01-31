@@ -15,8 +15,6 @@ import { OrderItem } from "@/app/constants/types";
 import { useAuthFetch, useAuthPost } from "@/app/(hooks)/useFetchData";
 
 export const OrderSheet = () => {
-  const existingOrderString = localStorage.getItem("orderItems");
-  const existingOrder = JSON.parse(existingOrderString || "[]");
   const [foodOrderItems, setFoodOrderItems] = useState<OrderItem[]>([]);
   const { data: myOrders } = useAuthFetch("food-order/my-order");
   const { onPost } = useAuthPost();
@@ -61,13 +59,33 @@ export const OrderSheet = () => {
       acc = acc + curr.food.price * curr.quantity;
       return acc;
     }, 0);
+    try {
+      onPost("food-order", {
+        foodOrderItems,
+        totalPrice,
+        address: "",
+      }).then(() => {
+        setFoodOrderItems([]);
+        localStorage.setItem("orderItems", "[]");
+      });
+    } catch (error) {
+      alert(error);
+    }
   };
-
+  console.log(myOrders);
   useEffect(() => {
-    const existingOrderString = localStorage.getItem("orderItem");
-    const existingOrder = JSON.parse(existingOrderString || "[]");
-    setFoodOrderItems(existingOrder);
-  }, [existingOrderString]);
+    const getOrderItems = () => {
+      const existingOrderString = localStorage.getItem("orderItem");
+      const existingOrder = JSON.parse(existingOrderString || "[]");
+      setFoodOrderItems(existingOrder);
+    };
+    getOrderItems();
+    window.addEventListener("storage", getOrderItems);
+    return () => {
+      window.removeEventListener("storage", getOrderItems);
+    };
+  }, []);
+
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -85,7 +103,7 @@ export const OrderSheet = () => {
         </SheetTitle>
         <div className="w-[350px] h-[540px] bg-[#ffffff] gap-4 mt-4 rounded-xl">
           <p className="pt-4 pl-2">My Cart</p>
-          {existingOrder.map((orderItem: any, idx: number) => (
+          {foodOrderItems.map((orderItem: any, idx: number) => (
             <div className="flex gap-4 mt-2 pl-2" key={orderItem?.food?._id}>
               <div className="w-[120px] rounded-xl mt-4">
                 <img
@@ -117,12 +135,13 @@ export const OrderSheet = () => {
             Add food
           </div>
         </div>
-
+        {/* <div>
+          <h1>My Orders</h1>
+          {myOrders}
+        </div> */}
         <SheetFooter>
           <SheetClose asChild>
-            <Button className="mt-4" type="submit">
-              Checkout
-            </Button>
+            <Button onClick={onClickCheckout}>Checkout</Button>
           </SheetClose>
         </SheetFooter>
       </SheetContent>

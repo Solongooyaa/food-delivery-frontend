@@ -1,10 +1,9 @@
 "use client";
 
-import { usePathname, useSearchParams, useRouter } from "next/navigation";
+import { usePathname, useSearchParams } from "next/navigation";
 import { Plus } from "lucide-react";
-import { useAuthFetch } from "@/app/(hooks)/useFetchData";
 import { Food, OrderItem } from "@/app/constants/types";
-import { OrderSheet } from "./OrderSheet";
+import { useAuthFetch } from "@/app/(hooks)/useFetchData";
 
 export const WebFood = () => {
   const searchParams = useSearchParams();
@@ -13,27 +12,36 @@ export const WebFood = () => {
   const { data: foods } = useAuthFetch(`food?categoryId=${category}`);
 
   const addFoodToOrder = (food: Food) => {
-    const oldValues = localStorage.getItem("orderItems");
-    const oldOrderItems = oldValues ? JSON.parse(oldValues) : [];
-
-    const oldFood = oldOrderItems.find(
-      (item: OrderItem) => item.food._id === food._id
+    localStorage.setItem(
+      "orderItems",
+      JSON.stringify([
+        {
+          food: food,
+          quantity: 1,
+        },
+      ])
     );
-    if (oldFood) {
-      oldFood.quantity += 1;
-    } else {
-      oldOrderItems.push({
-        food,
-        quantity: 1,
-      });
-    }
-    localStorage.setItem("orderItems", JSON.stringify(oldOrderItems));
   };
+
+  const oldValies = localStorage.getItem("orderItems");
+  const oldOrderItems = oldValies ? JSON.parse(oldValies) : [];
+
+  const oldFood = oldOrderItems.find(
+    (item: OrderItem) => item.food?._id === foods?._id
+  );
+  if (oldFood) {
+    oldFood.quantity += 1;
+  } else {
+    oldOrderItems.push({
+      foods,
+      quantity: 1,
+    });
+  }
 
   return (
     <div className="w-full h-full font-sans bg-gray-50">
       <div className="px-6 mt-10">
-        <h2 className="text-2xl font-bold text-gray-800 mb-4">{category}</h2>
+        <h2 className="text-2xl font-bold text-gray-800 mb-4">Appetizers</h2>
         <div className="w-full flex flex-wrap gap-6">
           {foods.map((food: Food) => (
             <div
@@ -43,6 +51,7 @@ export const WebFood = () => {
               <div className="relative">
                 <img
                   src={food.image}
+                  alt={food.foodName}
                   className="w-[365.33px] h-[210px] object-cover rounded-t-xl"
                 />
                 <button

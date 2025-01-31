@@ -36,4 +36,5 @@ export function useAuthPost() {
       body: JSON.stringify(body),
     });
   };
+  return { onPost };
 }

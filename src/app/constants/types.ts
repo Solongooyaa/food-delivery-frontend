@@ -14,6 +14,7 @@ export type Category = {
 export type OrderItem = {
   food: string;
   quantity: number;
+  price: number;
 };
 
 export type CustomRequest = Request & {
