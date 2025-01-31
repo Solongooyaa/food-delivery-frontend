@@ -14,7 +14,6 @@ export default function AdminLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  // const CLOUDINARY_CLOUD_NAME = ;
   return (
     <div className="flex h-screen ">
       <div className="w-[205px] bg-white flex flex-col pb-[30px]  py-6 px-4">

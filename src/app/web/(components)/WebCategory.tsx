@@ -1,6 +1,6 @@
 "use client";
 
-import { useAuthFetch } from "@/app/admin/_components/useFetchData";
+import { useAuthFetch } from "@/app/(hooks)/useFetchData";
 import { Category } from "@/app/constants/types";
 import { Carousel, CarouselContent } from "@/components/ui/carousel";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";

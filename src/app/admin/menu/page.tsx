@@ -9,7 +9,7 @@ import {
 import Category from "../_components/Categories";
 import { Pencil } from "lucide-react";
 import { Plus } from "lucide-react";
-import { useAuthFetch } from "../_components/useFetchData";
+import { useAuthFetch } from "../../(hooks)/useFetchData";
 import { useSearchParams } from "next/navigation";
 
 export default function MenuFood() {

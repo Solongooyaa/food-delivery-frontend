@@ -9,7 +9,7 @@ import {
 import Category from "./Categories";
 import { Pencil } from "lucide-react";
 import { Plus } from "lucide-react";
-import { useAuthFetch } from "./useFetchData";
+import { useAuthFetch } from "../../(hooks)/useFetchData";
 import { useSearchParams } from "next/navigation";
 import { on } from "process";
 
@@ -75,30 +75,27 @@ export const FoodCard = () => {
     }
     console.log(setFoods(foods.filter((food: any) => food._id !== id)));
   };
-  //   const oneFood = `/admin/menu`;
   return (
     <div className="w-full h-[800px] bg-white mt-6 rounded-2xl p-6 ">
       <h1 className="text-3xl font-bold text-gray-800">category</h1>
-      <div
-        // onClick={oneFood}
-        className="bg-white mt-8 rounded-lg flex gap-6 w-full overflow-x-auto flex-wrap justify-start"
-      >
-        {/* <div className="flex gap-6 "> */}
+      <div className="bg-white mt-8 rounded-lg flex gap-6 w-full overflow-x-auto flex-wrap justify-start">
         {foods?.map((food: any) => (
           <div
             className="flex flex-col max-w-[280px] w-full bg-white border border-gray-200 rounded-xl duration-300"
             key={food?._id}
           >
-            <img
-              src={food?.image}
-              className="w-[365.33px] h-[210px] object-cover rounded-t-xl"
-            />
-            <button
-              onClick={() => deleteFood(food?._id)}
-              className="w-[44px] h-[44px] text-red-500 bg-white rounded-full flex items-center justify-center border border-gray-300"
-            >
-              <Pencil className="w-5 h-5 " />
-            </button>
+            <div className="relative">
+              <img
+                src={food?.image}
+                className="w-[365.33px] h-[210px] object-cover rounded-t-xl relative"
+              />
+              <button
+                onClick={() => deleteFood(food?._id)}
+                className="w-[44px] h-[44px] bottom-2 right-2 text-red-500 bg-white rounded-full flex items-center justify-center border border-gray-300 absolute"
+              >
+                <Pencil className="w-5 h-5 " />
+              </button>
+            </div>
 
             <div className="p-4 flex flex-col gap-2">
               <div className="flex justify-between items-center text-2xl font-semibold text-[#EF4444]">

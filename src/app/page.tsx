@@ -7,7 +7,7 @@ import { ClerkProvider } from "@clerk/nextjs";
 import { Banner } from "./web/(components)/Banner";
 import { Carousel, CarouselContent } from "@/components/ui/carousel";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-import { useAuthFetch } from "./admin/_components/useFetchData";
+import { useAuthFetch } from "./(hooks)/useFetchData";
 import { Food, Category } from "./constants/types";
 import { Plus } from "lucide-react";
 import { OrderSheet } from "./web/(components)/OrderSheet";

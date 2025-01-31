@@ -10,10 +10,9 @@ import { SignedIn, SignedOut, UserButton } from "@clerk/clerk-react";
 import { ClerkProvider, SignInButton } from "@clerk/nextjs";
 import { Plus } from "lucide-react";
 import { usePathname, useSearchParams, useRouter } from "next/navigation";
-
 import React from "react";
 import { useState } from "react";
-import { useAuthFetch } from "./useFetchData";
+import { useAuthFetch } from "../../(hooks)/useFetchData";
 
 type Category = {
   categoryName: string;

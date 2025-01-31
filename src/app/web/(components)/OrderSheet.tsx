@@ -10,14 +10,16 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
-import { Pencil, ShoppingBasket, ShoppingCart } from "lucide-react";
+import { LucideDelete, ShoppingCart } from "lucide-react";
 import { OrderItem } from "@/app/constants/types";
+import { useAuthFetch, useAuthPost } from "@/app/(hooks)/useFetchData";
 
 export const OrderSheet = () => {
   const existingOrderString = localStorage.getItem("orderItems");
   const existingOrder = JSON.parse(existingOrderString || "[]");
-  const [foodOrderItems, setFoodOrderItems] =
-    useState<OrderItem[]>(existingOrder);
+  const [foodOrderItems, setFoodOrderItems] = useState<OrderItem[]>([]);
+  const { data: myOrders } = useAuthFetch("food-order/my-order");
+  const { onPost } = useAuthPost();
   const onMinusOrderItems = (idx: number) => {
     const newOrderItems = foodOrderItems.map((orderItem, index) => {
       if (idx === index && orderItem.quantity > 1) {
@@ -46,21 +48,26 @@ export const OrderSheet = () => {
     setFoodOrderItems(newOrderItems);
     localStorage.setItem("orderItems", JSON.stringify(newOrderItems));
   };
-//   const deleteFood = async (id: string) => {
-//     const response = await fetch(`http://localhost:8000/food/${id}`, {
-//       method: "DELETE",
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     });
+  const deleteFood = async (id: string) => {
+    const response = await fetch(`http://localhost:8000/food/${id}`, {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+  };
+  const onClickCheckout = async () => {
+    const totalPrice = foodOrderItems.reduce((acc, curr) => {
+      acc = acc + curr.food.price * curr.quantity;
+      return acc;
+    }, 0);
+  };
 
-//     if (response.ok) {
-//       setFoods(foods.filter((food: any) => food._id !== id));
-//     } else {
-//       console.error("Failed to delete food");
-//     }
-//     console.log(setFoods(foods.filter((food: any) => food._id !== id)));
-//   };
+  useEffect(() => {
+    const existingOrderString = localStorage.getItem("orderItem");
+    const existingOrder = JSON.parse(existingOrderString || "[]");
+    setFoodOrderItems(existingOrder);
+  }, [existingOrderString]);
   return (
     <Sheet>
       <SheetTrigger asChild>
@@ -86,13 +93,13 @@ export const OrderSheet = () => {
                   className="object-cover rounded-xl"
                 />
               </div>
-              <div className="w-[200px] h-[120px] ">
-                {/* <button
-                  onClick={() => deleteFood(food?._id)}
-                  className="w-[44px] h-[44px] text-red-500 bg-white rounded-full flex items-center justify-center border border-gray-300"
+              <div className="w-[200px] h-[120px] relative ">
+                <button
+                  onClick={() => deleteFood(orderItem?.food?._id)}
+                  className="w-[20px] h-[20px] absolute right-2 text-red-500 bg-white rounded-full flex items-center justify-center border"
                 >
-                  <Pencil className="w-5 h-5 " />
-                </button> */}
+                  <LucideDelete className="w-2 h-2 " />
+                </button>
                 <p className="text-[#EF4444]">{orderItem?.food?.foodName}</p>
                 <p className="text-sm text-gray-600">
                   {orderItem?.food.ingredients}
